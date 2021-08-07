@@ -12,6 +12,7 @@ import net.sunofbeach.blog.utii.Constants;
 import net.sunofbeach.blog.utii.IdWorker;
 import net.sunofbeach.blog.utii.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +23,10 @@ import java.util.Date;
 @Slf4j
 @Service
 @Transactional
-
 public class UserServiceImpl implements IUserService {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private IdWorker idWorker;
@@ -68,6 +71,12 @@ public class UserServiceImpl implements IUserService {
         //可能会有问题
         sobUser.setCreateTime(new Date());
         sobUser.setUpdateTime(new Date());
+        //对密码进行加密
+        //原密码
+        String password = sobUser.getPassword();
+        //加密码
+        String encode = bCryptPasswordEncoder.encode(password);
+        sobUser.setPassword(encode);
         //保存到数据库里
         userDao.save(sobUser);
         //更新已经添加的标记

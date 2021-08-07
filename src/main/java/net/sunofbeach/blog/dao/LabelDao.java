@@ -1,6 +1,6 @@
 package net.sunofbeach.blog.dao;
 
-import net.sunofbeach.blog.pojo.Labels;
+import net.sunofbeach.blog.pojo.Label;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

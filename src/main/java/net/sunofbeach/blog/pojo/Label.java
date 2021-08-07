@@ -10,7 +10,7 @@ import javax.persistence.Column;
 @Proxy(lazy = false)
 @Entity
 @Table (name ="tb_labels" )
-public class Labels {
+public class Label {
 
   	@Id
 	private String id;
