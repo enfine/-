@@ -1,6 +1,6 @@
 package net.sunofbeach.blog.utii;
 
-import com.mysql.cj.Session;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -10,6 +10,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
+@Slf4j
 public class EmailSender {
     private static final String TAG = "EmailSender";
     private static Session session;
@@ -21,7 +22,7 @@ public class EmailSender {
     private List<MimeBodyPart> attachments = new ArrayList<MimeBodyPart>();
 
     private EmailSender() {
-        EmailSender.config(EmailSender.SMTP_ENT_QQ(false), "邮箱地址", "密码");
+        EmailSender.config(EmailSender.SMTP_QQ(false), "731959892@qq.com", "wxecktyyemrcbdij");
     }
 
     public static Properties defaultConfig(Boolean debug) {
@@ -106,7 +107,7 @@ public class EmailSender {
         try {
             EmailSender.msg.setSubject(subject, "UTF-8");
         } catch (Exception e) {
-            LogUtil.d(TAG, e + "");
+            log.info(TAG, e);
         }
         return EmailSender;
     }
@@ -300,17 +301,5 @@ public class EmailSender {
         MimeBodyPart bodyPart = new MimeBodyPart();
         bodyPart.setContent(html, "text/html; charset=utf-8");
         return bodyPart;
-    }
-}
-
-//发送邮件
-public class TestEmailSender {
-
-    public static void main(String[] args) throws MessagingException {
-        EmailSender.subject("测试邮件发送")
-                .from("阳光沙滩博客系统")
-                .text("这是发送的内容：ab12rf")
-                .to("1447585309@qq.com")
-                .send();
     }
 }
